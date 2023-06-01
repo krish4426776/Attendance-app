@@ -1,0 +1,61 @@
+{% block content %}
+<html lang="en">
+  <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            </head>
+<body>
+<nav class="navbar navbar-light bg-light">
+  <div class="container-fluid">
+    <form class="d-flex">
+      <input class="form-control me-2" type="search" placeholder="Search Employees" aria-label="Search" name="q">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+  </div>
+</nav> 
+</body>
+
+
+
+<h1>Attendance List</h1>
+<a href="{% url 'home' %}">HOME</a>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Name</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+ 
+   
+    <tbody>
+      {% for att in attendance %}
+      
+      {% ifchanged att.date %}
+        <tr>
+          <td colspan="3"><strong> <span class="badge bg-secondary"> <i>{{ att.date }}</i> </span>  </strong></td>
+        </tr>
+      {% endifchanged %}
+      <tr>
+        <td></td>
+        
+        <td>{{ att.user }}</td>
+        
+        <td>{{ att.status }}</td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="3">No attendance records found.</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </html>
+  
+{% endblock %}

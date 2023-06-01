@@ -1,0 +1,18 @@
+{% include 'base/nav.html' %}
+{% block content %}
+<html>
+    <head>
+        <title> notification </title>
+    </head>
+    <body>
+        <h1><span class="badge bg-warning text-dark"> Create Notification </span></h1>
+        <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+            <input type="submit" class="btn btn-outline-success" value= "POST" >
+        </form>
+        <a href="{% url 'home' %}">GO BACK</a>
+
+    </body>
+</html>
+{% endblock %}

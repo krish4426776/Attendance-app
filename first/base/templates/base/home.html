@@ -1,0 +1,80 @@
+{% load custom_filters %}
+{% include 'base/nav.html' %}
+
+<html>
+    <style>
+        .main{
+            display:grid;
+            grid-template-columns: 1fr 3fr 1fr ;
+    
+        }
+    </style>
+    
+    {% block content %}
+    <span class="badge bg-success"> WELCOME {{request.user }}</span>
+    <br>
+    <br>
+   
+        <div class="main">
+            <div class="user">
+               
+                {% if request.user|has_group:"Admin" %}
+                
+              <h1> Users </h1>
+                <br>
+                <br>
+                   
+                    {% for user in users %}
+                        
+                        
+                            {{ user.username }}  
+                            <br>
+                            <span><a href="{% url 'edit' user.id %}">  <button type="button" class="btn btn-outline-primary">EDIT </button></a></span>
+                            <span><a href="{% url 'delete' user.id %}"> <button type="button" class="btn btn-outline-danger" > DELETE </button> </a></span>
+                            <br>
+                           
+                        
+                    
+                    {% endfor %}
+                {% endif %}
+                
+            </div>
+            <div class="attendee">
+                <span class="badge bg-info text-dark"><h1> ATTENDANCE ROOM</h1></span> 
+                <hr>
+                
+                {% for rooms in room %}
+                {% if request.user|has_group:"Admin" %}
+                     ATTENDANCE FOR --  {{ rooms.datee }}
+                    <span><a href="{% url 'deleteroom' rooms.id %}"> <button type="button" class="btn btn-outline-danger" > DELETE </button> </a></span>
+                </a>  
+                <br>
+                {% else %}
+                <a href = "{% url 'index' rooms.id %}"> ATTENDANCE FOR --  {{ rooms.datee }} </a>
+                    <br>
+                    <span class="badge rounded-pill bg-info text-dark">{{rooms.created |timesince}} ago</span>
+                    <br>
+                    <br>
+                    
+
+                    {% endif %}
+                {% endfor %}
+               
+            </div>
+            <div class="notification" >
+                <h1 style="text-align: center;"> Notifications </h1>
+                <br>
+                {% for notification in notifications %}
+                    {{ notification.description }}
+                    <br>
+                    <span class="badge rounded-pill bg-info text-dark"> {{notification.created | timesince}} ago </span> 
+                    {% if request.user|has_group:"Admin" %} 
+                    
+                    <span><a href="{% url 'deletenoti'  notification.id %}"> <button type="button" class="btn btn-outline-danger" > DELETE </button> </a></span>
+                    {% endif %}
+                    <br>
+                    {% endfor %}
+            </div>
+        </div>
+    {% endblock %}
+</html>

@@ -1,0 +1,9 @@
+{% include 'base/nav.html' %}
+
+
+{% block content %}
+   <H2>ATTENDANCE FOR  {{room.datee}}</H2>
+   <HR>
+    <h3>  <a href="{% url 'attend' %}" >  make attendance</a>       </h3>
+
+{% endblock %}

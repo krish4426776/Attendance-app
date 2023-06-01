@@ -1,0 +1,17 @@
+<h1> {{request.user}} attendance </h1>
+{% block content %}
+<table>
+    <tbody>
+    {% for x in info %}
+        {% ifchanged x.date %}
+        <tr>
+            <td colspan="3"><strong>  <i>{{ x.date }}</i>  </strong></td>
+          </tr>
+          {% endifchanged %}
+          <tr>
+            <td></td>
+            <td>{{ x.user }}</td>
+            <td>{{ x.status }}</td>
+          </tr>
+    {% endfor %}
+{% endblock %}

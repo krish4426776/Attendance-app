@@ -1,0 +1,10 @@
+<div class="user">
+               
+    <h3> users </h3>
+    {% for user in user %}
+        {{user.username}} <a href="{% url 'edit' user.id %}"> EDIT </a>
+        <br>
+
+    {% endfor %}
+
+</div>
